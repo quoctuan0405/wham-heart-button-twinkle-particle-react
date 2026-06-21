@@ -6,7 +6,7 @@ You can play with it [here](https://wham-heart-button-twinkle-particle.vercel.ap
 
 As I spend quite a lot of tinkering to create this animation on canvas, I'll put it here in case somebody needed.
 
-Check out the source code [here]().
+Check out the source code on the [file HeartButton.tsx](https://github.com/quoctuan0405/wham-heart-button-twinkle-particle-react/blob/main/src/HeartButton.tsx).
 
 ## The hard part
 
