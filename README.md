@@ -8,6 +8,8 @@ As I spend quite a lot of tinkering to create this animation on canvas, I'll put
 
 Check out the source code on the [file HeartButton.tsx](https://github.com/quoctuan0405/wham-heart-button-twinkle-particle-react/blob/main/src/HeartButton.tsx).
 
+Check out my original attempt using SolidJS: https://github.com/quoctuan0405/wham-heart-button-twinkle-particle-solid.
+
 ## The hard part
 
 Assume you already watch the rocket animation on canvas video, the hard part of this animation is how to create the :sparkles:*twinkling effect*:sparkles:.
