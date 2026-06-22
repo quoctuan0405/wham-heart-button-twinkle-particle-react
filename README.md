@@ -16,6 +16,36 @@ Assume you already watch the rocket animation on canvas video, the hard part of 
 
 You'll need the opacity of a particle to fluctuate between 0 and 1 while simutanenously go toward 0.
 
+UPDATE:
+
+Here's the function I came up with:
+
+![Better Opacity function](public/better-opacity-function.png)
+
+opacity = -0.18 * time + e ^ (-0.5 * time) * cos(9 * time) / 2 + 0.5
+
+- The -0.18 * time is the "base" function to move downward toward 0
+- In order to for it to fluctuate but fluctuate gradually less, I add e ^ (-0.5 * time) * cos(9 * time)
+- The / 2 + 0.5 is to make the e ^ (-0.5 * time) * cos(9 * time) fluctuate between 0 and 1 instead of the -1 to 1 of the cosine function
+
+I think this function is decent but it's still not perfect.
+
+In some part it went negative (which mean your particle will disappear for a bit before appear again), while in some part it does not touch 0.
+
+![Better Opacity function](public/better-opacity-function-imperfect-highlight.png)
+
+I think the "perfect function" should be like this:
+
+![Perfect function](public/perfect-function.png)
+
+...but I can't think of anyway to create that exact function.
+
+It seems the peak of the decay sine wave function Ae^(kt) * sin(wt) does not follow a kind of -ax function.
+
+If you come up with any solution, I'd love to know!
+
+ORIGINAL:
+
 Here's the function I came up with:
 
 ![Opacity function](public/desmos-function.png)
@@ -29,12 +59,6 @@ opacity = 1/4 * time + cos(6 * time) / 2 + 0.5
 This function is by no means perfect since quite a lot times, it went negative. This means that your particle will disappear for a while before appear and twinking again.
 
 ![Opacity function](public/desmos-function-negative-highlight.png)
-
-I think the "perfect function" should be like this:
-
-![Perfect function](public/perfect-function.png)
-
-...but I can't think of anyway to create that using the sine and cosine function.
 
 ## Ways I've thinking about
 
@@ -61,8 +85,6 @@ f(t) = (e^(kt) / (k^2 + w^2)) * (k * sin(wt) + w * cos(wt)) - 1/4x + C
 ...but you probably just kill me at this point.
 
 Despite 12 years having to study math at school, I'm totally not nearly equip to deal with this kind of shit.
-
-If you come up with any solution, I'd love to know!
 
 ## Setup
 

@@ -53,7 +53,7 @@ export const HeartButton: React.FC = () => {
         cosAngle: Math.cos(randomInt), // Math.cos(angle) (pre-calculate this to avoid calculate over and over again in the requestAnimationFrame)
         sinAngle: Math.sin(randomInt), // Math.cos(angle)
         distance: 0,
-        twinkleFrequency: 4 + ((randomInt >> 3) & 3), // 4 + Math.round(Math.random() * 3)
+        twinkleFrequency: 8 + ((randomInt >> 3) & 3), // 8 + Math.round(Math.random() * 3)
         twinkleStartTime: now + 500 + (randomInt & 1023), // now + 500 + Math.round(Math.random() * 1023)
         drag: -0.00012 * (50 + (randomInt & 31)), // -0.00012 * (50 + Math.round(Math.random() * 31))
       });
@@ -104,14 +104,15 @@ export const HeartButton: React.FC = () => {
       let opacity = 1;
       const twinkleTime = (now - particle.twinkleStartTime) / 1000;
       if (twinkleTime > 0) {
-        // Here's the twinkle opacity function f(t) = -1/4 * t + cos(5t) / 2 + 0.5
+        // Here's the twinkle function f(t) = -0.18 * t + e ^ (-0.5t) * cos(9t) / 2 + 0.5
         // -1/4 * t as the "base" function to move downward toward 0
-        // cos(5 * t) is for fluctuation
-        // the "/ 2 + 0.5" is to force cos(5t) fluctuate between 0 and 1
-        // See the graph of this function in https://www.desmos.com/calculator
+        // e ^ (-0.5t) * cos(9t) is for the gradual fluctuation toward 0
+        // the "/ 2 + 0.5" is to force cos(9t) fluctuate between 0 and 1
         opacity =
-          -0.25 * twinkleTime +
-          Math.cos(particle.twinkleFrequency * twinkleTime) / 2 +
+          -0.18 * twinkleTime +
+          (Math.exp(-0.5 * twinkleTime) *
+            Math.cos(particle.twinkleFrequency * twinkleTime)) /
+            2 +
           0.5;
       }
 
