@@ -105,7 +105,7 @@ export const HeartButton: React.FC = () => {
       const twinkleTime = (now - particle.twinkleStartTime) / 1000;
       if (twinkleTime > 0) {
         // Here's the twinkle function f(t) = -0.18 * t + e ^ (-0.5t) * cos(9t) / 2 + 0.5
-        // -1/4 * t as the "base" function to move downward toward 0
+        // -0.18 * t as the "base" function to move downward toward 0
         // e ^ (-0.5t) * cos(9t) is for the gradual fluctuation toward 0
         // the "/ 2 + 0.5" is to force cos(9t) fluctuate between 0 and 1
         opacity =
