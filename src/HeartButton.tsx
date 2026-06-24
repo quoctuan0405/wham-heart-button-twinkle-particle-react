@@ -66,6 +66,11 @@ export const HeartButton: React.FC = () => {
   const lastTimestampRef = useRef<number>(performance.now());
 
   const _draw = useEffectEvent(() => {
+    if (!canvasRef.current || !ctxRef.current) {
+      setIsDrawing(false);
+      return;
+    }
+
     if (particlesRef.current.length === 0) {
       setIsDrawing(false);
       ctxRef.current.clearRect(
@@ -104,17 +109,16 @@ export const HeartButton: React.FC = () => {
       let opacity = 1;
       const twinkleTime = (now - particle.twinkleStartTime) / 1000;
       if (twinkleTime > 0) {
-        // Here's the twinkle function f(t) = -0.18 * t + e ^ (-0.5t) * cos(9t) / 2 + 0.5
-        // -0.18 * t as the "base" function to move downward toward 0
-        // e ^ (-0.5t) * cos(9t) is for the gradual fluctuation toward 0
-        // the "/ 2 + 0.5" is to force cos(9t) fluctuate between 0 and 1
+        // Here's the twinkle function f(t) = (-1/4 * t + 1) * (cos(7 * t) / 2 + 0.5)
+        // -1/4 * t as the "base" function to move downward toward 0
+        // In order to for it to fluctuate, I go with the cosine function cos(7 * t) / 2 + 0.5
+        // The / 2 + 0.5 is to make the cosine function to go between 0 and 1 instead of the -1 to 1 of the cosine function
         opacity =
-          -0.18 * twinkleTime +
-          (Math.exp(-0.5 * twinkleTime) *
-            Math.cos(particle.twinkleFrequency * twinkleTime)) /
-            2 +
-          0.5;
+          (-0.25 * twinkleTime + 1) *
+          (Math.cos(particle.twinkleFrequency * twinkleTime) / 2 + 0.5);
       }
+
+      console.log(opacity);
 
       ctxRef.current.beginPath();
       ctxRef.current.arc(
@@ -161,6 +165,8 @@ export const HeartButton: React.FC = () => {
 
   // Setup canvas
   useEffect(function setupCanvas() {
+    if (!canvasRef.current) return;
+
     const dpr = window.devicePixelRatio;
     const { width, height } = canvasRef.current.getBoundingClientRect();
     canvasRef.current.width = width * dpr;

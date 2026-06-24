@@ -18,6 +18,18 @@ You'll need the opacity of a particle to fluctuate between 0 and 1 while simutan
 
 UPDATE:
 
+Here's the function I came up with
+
+![Perfect function](public/perfect-function-desmos.png)
+
+opacity = (-1/4 * t) * (cos(7 * t) / 2 + 0.5)
+
+- The -1/4 * t is for the gradual fading opacity
+- In order to for it to fluctuate, I go with the cosine function cos(7 * t) / 2 + 0.5
+- The / 2 + 0.5 is to make the cosine function to go between 0 and 1 instead of the -1 to 1 of the cosine function
+
+ORIGINAL:
+
 Here's the function I came up with:
 
 ![Better Opacity function](public/better-opacity-function.png)
