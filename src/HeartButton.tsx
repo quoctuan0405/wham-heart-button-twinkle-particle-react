@@ -118,8 +118,6 @@ export const HeartButton: React.FC = () => {
           (Math.cos(particle.twinkleFrequency * twinkleTime) / 2 + 0.5);
       }
 
-      console.log(opacity);
-
       ctxRef.current.beginPath();
       ctxRef.current.arc(
         particleStartPosition.current.x + x,
